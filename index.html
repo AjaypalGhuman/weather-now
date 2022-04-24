@@ -12,7 +12,7 @@
 
 <body class="flex-column min-100-vh">
     <header class="hero">
-      <h1 class="app-title"><i class="fab fa-github"></i> Weather Now!</h1>
+      <h1 class="app-title"><i class="fab fa-weather"></i> Weather Now!</h1>
       <p>Search for a City and be presented with a 5-day weather forecast!</p>
     </header>
 
@@ -26,7 +26,15 @@
               <input name="username" id="username" type="text" autofocus="true" class="form-input" />
               <button type="submit" class="btn">Search</button>
             </form>
+            <div class="card-history">
+                <h4 class="card-header text-uppercase">Locations Recently Searched:</h4>
+                <div id="result-List" class="list-group">
+                </div>
+              </div>
           </div>
+        
+    </main>
+    <script src="assets/js/script.js"></script>
     
 </body>
 </html>
