@@ -13,6 +13,7 @@
 </head>
 
 <body class="flex-column min-100-vh">
+    <!-- Title in the Hero section at the top of the page -->
     <header class="hero">
       <h1 class="app-title"><i class="fab fa-weather"></i> Weather Now!</h1>
       <p>Search for a City and be presented with a 5-day weather forecast!</p>
@@ -20,21 +21,23 @@
 
     <main class="flex-row justify-space-between">
         <div class="col-12 col-md-4">
-    
+    <!-- Search Bar Section -->
           <div class="card">
             <h3 class="card-header text-uppercase">Search For a City:</h3>
-            <form id="user-form" class="card-body">
-              <label class="form-label" for="username">Name of City</label>
-              <input name="username" id="username" type="text" autofocus="true" class="form-input" />
-              <button type="submit" class="btn btn-info">Search</button>
+            <form id="city-form" class="card-body">
+              <label class="form-label" for="city">Name of City</label>
+              <input name="City" id="lookup-city" type="text" autofocus="true" class="form-input" />
+              <button type="submit" class="btn btn-info" id="Search">Search</button>
             </form>
+            <!-- Cities can be deleted from the local stoarge here -->
             <div class="card">
                 <h4 class="card-header text-uppercase">Locations Recently Searched:</h4>
                 <div id="search-List" class="list-group">
-                    <button type="button" id="clear-btn" class="btn btn-primary btn-sm">Clear Search History</button>
+                    <button type="button" id="delete" class="btn btn-primary btn-sm">Clear Search History</button>
                 </div>
               </div>
           </div>
+          <!-- Information of the locations weather will be displayed here -->
           <div class="col-lg-9">
             <div class="row mr-0">
                 <div class="col-lg-11 card m-3 d-none" id="current-weather">
@@ -48,7 +51,8 @@
                     </div>
                 </div>
             </div>
-            <div class="row d-none" id="fiveday-header">
+            <!-- Tiles showing the current 5-day forecast will be displayed here -->
+            <div class="row d-none" id="forecast-header">
                 <div class="col-12">
                     <h3>Forecast for the next 5 days</h3>
                 </div>
