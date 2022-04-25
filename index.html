@@ -28,15 +28,44 @@
               <input name="username" id="username" type="text" autofocus="true" class="form-input" />
               <button type="submit" class="btn btn-info">Search</button>
             </form>
-            <div class="card-history">
+            <div class="card">
                 <h4 class="card-header text-uppercase">Locations Recently Searched:</h4>
-                <div id="result-List" class="list-group">
-                    <button type="button" id="clear-btn" class="btn btn-secondary btn-sm">Clear Search History</button>
+                <div id="search-List" class="list-group">
+                    <button type="button" id="clear-btn" class="btn btn-primary btn-sm">Clear Search History</button>
                 </div>
               </div>
           </div>
+          <div class="col-lg-9">
+            <div class="row mr-0">
+                <div class="col-lg-11 card m-3 d-none" id="current-weather">
+                    <div class="card-body">
+                        <h3 class="city-name align-middle" id="city-name"></h3>
+                        <img id="weather-picture" alt="">
+                        <p id="temperature"></p>
+                        <p id="wind"></p>
+                        <p id="humidity"></p>
+                        <p id="UV"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="row d-none" id="fiveday-header">
+                <div class="col-12">
+                    <h3>Forecast for the next 5 days</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3 weather bg-primary text-white m-2 rounded"></div>
+                <div class="col-md-3 weather bg-primary text-white m-2 rounded"></div>
+                <div class="col-md-3 weather bg-primary text-white m-2 rounded"></div>
+                <div class="col-md-3 weather bg-primary text-white m-2 rounded"></div>
+                <div class="col-md-3 weather bg-primary text-white m-2 rounded"></div>
+            </div>
+        </div>
         
     </main>
+    <footer>
+        <h3>Safe Travels!</h3>
+    </footer>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.15.0/umd/popper.min.js"></script>
