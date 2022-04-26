@@ -126,6 +126,8 @@ function fetchWeather(location) {
   });
 }
 
+// handling the submit and delete functionality below
+
 findLocationEl.addEventListener("click", function () {
   
  var searchItem = locationEl.value;
@@ -148,6 +150,7 @@ function k2f(K) {
   return Math.floor((K - 273.15) * 1.8 + 32);
 }
 
+// help display search history
 function fetchHistory() {
 
   historyDataEl.innerHTML = "";
