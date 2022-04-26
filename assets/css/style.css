@@ -4,6 +4,19 @@
     text-align: center;
 }
 
+.parent {
+    border: 1px solid black;
+    margin: 1rem;
+    padding: 2rem 2rem;
+    text-align:justify;
+  }
+  .child {
+    display: inline-block;
+    border: 1px solid blue;
+    padding: 1rem 1rem;
+    vertical-align: middle;
+  }
+
 footer {
     background-color: lightblue;
     padding: 3% 4%;
