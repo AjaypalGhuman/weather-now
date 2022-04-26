@@ -4,13 +4,13 @@ var APIKey = "5a6cef4d1204ccc7f8ea98b77c56795b";
 // Variables declared onto the global scope
 var locationEl = document.getElementById("location-input");
 
-var searchEl = document.getElementById("searchBtn");
+var findLocationEl = document.getElementById("searchBtn");
 
-var clearEl = document.getElementById("delete-history");
+var deleteEl = document.getElementById("delete-history");
 
 var locationNameEl = document.getElementById("location-name");
 
-var currentPicEl = document.getElementById("current-pic");
+var weatherIconEl = document.getElementById("weather-pic");
 
 var temperatureEl = document.getElementById("temperature");
 
@@ -22,7 +22,7 @@ var uvEl = document.getElementById("UV");
 
 var historyDataEl = document.getElementById("historyData");
 
-var searchHistory = JSON.parse(localStorage.getItem("search")) || [];
+var History = JSON.parse(localStorage.getItem("search")) || [];
 
 // get request from API to retrieve weather information
 function fetchWeather(location) {
@@ -40,11 +40,11 @@ function fetchWeather(location) {
     locationNameEl.innerHTML = `${response.data.name} ${month}/${day}/${year} `;
     // displays weather image icon
     let weatherPic = response.data.weather[0].icon;
-    currentPicEl.setAttribute(
+    weatherIconEl.setAttribute(
       "src",
       `https://openweathermap.org/img/wn/${weatherPic}@2x.png`
     );
-    currentPicEl.setAttribute("alt", response.data.weather[0].description);
+    weatherIconEl.setAttribute("alt", response.data.weather[0].description);
     // displays temperature, wind speed, and humidity of location on the card body
     temperatureEl.innerHTML = `Temperature: ${k2f(
       response.data.main.temp
@@ -72,7 +72,7 @@ function fetchWeather(location) {
       uvEl.innerHTML = "Current UV Index: ";
       uvEl.append(uvIndex);
     });
-
+// Displays the 5-day forecast using the API call
     var cityID = response.data.id;
     let forecastApiURL = `https://api.openweathermap.org/data/2.5/forecast?id=${cityID}&appid=${APIKey}`;
     axios.get(forecastApiURL).then(function (response) {
@@ -99,9 +99,7 @@ function fetchWeather(location) {
         var forecastWeatherEl = document.createElement("img");
         forecastWeatherEl.setAttribute(
           "src",
-          "https://openweathermap.org/img/wn/" +
-            response.data.list[forecastIndex].weather[0].icon +
-            "@2x.png"
+          `https://openweathermap.org/img/wn/${response.data.list[forecastIndex].weather[0].icon}@2x.png`
         );
         forecastWeatherEl.setAttribute(
           "alt",
@@ -109,53 +107,57 @@ function fetchWeather(location) {
         );
         forecastEl[i].append(forecastWeatherEl);
 
-        var forecastTempEl = document.createElement("p");
-        forecastTempEl.innerHTML =
-          "Temp: " +
-          k2f(response.data.list[forecastIndex].main.temp) +
-          " &#176F";
-        forecastEl[i].append(forecastTempEl);
+        var TemperatureEl = document.createElement("p");
+        TemperatureEl.innerHTML =
+          `Temp: ${k2f(response.data.list[forecastIndex].main.temp)} &#176F`;
+        forecastEl[i].append(TemperatureEl);
 
         var WindEl = document.createElement("p");
         WindEl.innerHTML =
-          "Wind: " + response.data.list[forecastIndex].wind.speed + " mph";
+          `Wind: ${response.data.list[forecastIndex].wind.speed} mph`;
         forecastEl[i].append(WindEl);
 
-        var forecastHumidityEl = document.createElement("p");
-        forecastHumidityEl.innerHTML =
-          "Humidity: " + response.data.list[forecastIndex].main.humidity + "%";
-        forecastEl[i].append(forecastHumidityEl);
+        var HumidityEl = document.createElement("p");
+        HumidityEl.innerHTML =
+          `Humidity: ${response.data.list[forecastIndex].main.humidity}%`;
+        forecastEl[i].append(HumidityEl);
       }
     });
   });
 }
 
-searchEl.addEventListener("click", function () {
-  const searchTerm = locationEl.value;
-  fetchWeather(searchTerm);
-  searchHistory.push(searchTerm);
-  localStorage.setItem("search", JSON.stringify(searchHistory));
-  getSearchHistory();
+findLocationEl.addEventListener("click", function () {
+  
+ var searchItem = locationEl.value;
+  fetchWeather(searchItem);
+  History.push(searchItem);
+
+  localStorage.setItem("search", JSON.stringify(History));
+
+  fetchHistory();
 });
 
-clearEl.addEventListener("click", function () {
-  searchHistory = [];
-  getSearchHistory();
+deleteEl.addEventListener("click", function () {
+
+  History = [];
+
+  fetchHistory();
 });
 
 function k2f(K) {
   return Math.floor((K - 273.15) * 1.8 + 32);
 }
 
-function getSearchHistory() {
+function fetchHistory() {
+
   historyDataEl.innerHTML = "";
-  for (let i = 0; i < searchHistory.length; i++) {
+  for (let i = 0; i < History.length; i++) {
     const historyItem = document.createElement("input");
 
     historyItem.setAttribute("type", "text");
     historyItem.setAttribute("readonly", true);
     historyItem.setAttribute("class", "form-control d-block bg-white");
-    historyItem.setAttribute("value", searchHistory[i]);
+    historyItem.setAttribute("value", History[i]);
     historyItem.addEventListener("click", function () {
       fetchWeather(historyItem.value);
     });
@@ -164,7 +166,8 @@ function getSearchHistory() {
   }
 }
 
-getSearchHistory();
-if (searchHistory.length > 0) {
-  fetchWeather(searchHistory[searchHistory.length - 1]);
+fetchHistory();
+
+if (History.length > 0) {
+  fetchWeather(History[History.length - 1]);
 }
