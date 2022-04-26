@@ -53,11 +53,11 @@ function fetchWeather(location) {
     windEl.innerHTML = `Wind: ${response.data.wind.speed} mph`;
 
     humidityEl.innerHTML = `Humidity: ${response.data.main.humidity}%`;
-
+// helps retrieve and display the UV index data
     let latitude = response.data.coord.lat;
     let longitude = response.data.coord.lon;
     let UvApiURL = `https://api.openweathermap.org/data/2.5/uvi/forecast?lat=${latitude}&lon=${longitude}&appid=${APIKey}&cnt=1`;
-
+// creates the color that will show whether a UV index is favorable, moderate, or severe
     axios.get(UvApiURL).then(function (response) {
       let uvIndex = document.createElement("span");
       if (response.data[0].value < 4) {
@@ -95,7 +95,7 @@ function fetchWeather(location) {
         forecastDateEl.innerHTML =
           forecastMonth + "/" + forecastDay + "/" + forecastYear;
         forecastEl[i].append(forecastDateEl);
-
+// adds and image of the weather for each consecutive day in the forecast
         var forecastWeatherEl = document.createElement("img");
         forecastWeatherEl.setAttribute(
           "src",
@@ -106,7 +106,7 @@ function fetchWeather(location) {
           response.data.list[forecastIndex].weather[0].description
         );
         forecastEl[i].append(forecastWeatherEl);
-
+// displays the data of each weather attribute under each consecutive day
         var TemperatureEl = document.createElement("p");
         TemperatureEl.innerHTML =
           `Temp: ${k2f(response.data.list[forecastIndex].main.temp)} &#176F`;
